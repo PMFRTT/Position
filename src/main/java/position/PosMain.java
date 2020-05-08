@@ -251,12 +251,14 @@ public class PosMain extends JavaPlugin implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (PosInventory.INV != null) {
-            if (e.getClickedInventory().equals(PosInventory.INV)) {
-                e.setCancelled(true);
-                int j = e.getSlot();
-                if (e.getCurrentItem() != null) {
-                    e.getWhoClicked().sendMessage(Utils.getPrefix("Position") + Utils.colorize("Name: &6" + StringUtils.capitalize(nametoInt.get(j))));
-                    e.getWhoClicked().sendMessage(Utils.getPrefix("Position") + Utils.colorize("(&6" + loctoInt.get(j).getBlockX() + "&f | &6" + loctoInt.get(j).getBlockY() + "&f | &6" + loctoInt.get(j).getBlockZ() + "&f)"));
+            if (e.getWhoClicked() instanceof Player) {
+                if (e.getClickedInventory() == PosInventory.INV) {
+                    int j = e.getSlot();
+                    e.setCancelled(true);
+                    if (e.getCurrentItem() != null) {
+                        e.getWhoClicked().sendMessage(Utils.getPrefix("Position") + Utils.colorize("Name: &6" + StringUtils.capitalize(nametoInt.get(j))));
+                        e.getWhoClicked().sendMessage(Utils.getPrefix("Position") + Utils.colorize("(&6" + loctoInt.get(j).getBlockX() + "&f | &6" + loctoInt.get(j).getBlockY() + "&f | &6" + loctoInt.get(j).getBlockZ() + "&f)"));
+                    }
                 }
             }
         }
