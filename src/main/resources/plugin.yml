@@ -1,0 +1,8 @@
+api-version: 1.13
+name: SetPosition
+main: position.PosMain
+version: 1.0.0
+commands:
+  position:
+    aliases: [pos]
+depend: [Core]
