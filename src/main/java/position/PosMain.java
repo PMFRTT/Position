@@ -43,12 +43,11 @@ public class PosMain extends JavaPlugin implements Listener {
     public void onEnable() {
 
         CoreMain.setPlugin(this);
+        PosEventHandler posEventHandler = new PosEventHandler(this);
+        posEventHandler.initialize();
 
         commandExecutor = new PosCommandExecutor(this);
         getCommand("position").setExecutor(commandExecutor);
-
-        Bukkit.getPluginManager().registerEvents(this, this);
-
 
         try {
 
@@ -245,22 +244,6 @@ public class PosMain extends JavaPlugin implements Listener {
         } else {
             i = 0;
             positions.delete();
-        }
-    }
-
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        if (PosInventory.INV != null) {
-            if (e.getWhoClicked() instanceof Player) {
-                if (e.getClickedInventory() == PosInventory.INV) {
-                    int j = e.getSlot();
-                    e.setCancelled(true);
-                    if (e.getCurrentItem() != null) {
-                        e.getWhoClicked().sendMessage(Utils.getPrefix("Position") + Utils.colorize("Name: &6" + StringUtils.capitalize(nametoInt.get(j))));
-                        e.getWhoClicked().sendMessage(Utils.getPrefix("Position") + Utils.colorize("(&6" + loctoInt.get(j).getBlockX() + "&f | &6" + loctoInt.get(j).getBlockY() + "&f | &6" + loctoInt.get(j).getBlockZ() + "&f)"));
-                    }
-                }
-            }
         }
     }
 
